@@ -1,3 +1,5 @@
+http://www.r-bloggers.com/predictive-bookmaker-consensus-model-for-the-uefa-euro-2016/?utm_source=feedburner&utm_medium=email&utm_campaign=Feed%3A+RBloggers+%28R+bloggers%29
+
 http://www.bettingexpert.com/how-to/convert-odds
 
 Decimal odds are a simple reflection of the return you will receive for each single unit placed. For example, let's say bookmaker Matchbook is offering odds of 1.65 for Manchester United to win. This means that for every 1.00 you bet on that particular outcome, you will receive a profit of 0.65 should Manchester United win.

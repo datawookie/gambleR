@@ -1,0 +1,14 @@
+Package: gambleR
+Type: Package
+Title: Functions for Gambling
+Version: 0.1.0
+Authors@R: person("Andrew", "Collier", email = "andrew@exegetic.biz",
+                  role = c("aut", "cre"))
+Description: Functions for Gambling.
+License: GPL-3
+LazyData: TRUE
+Imports:
+    MASS
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
