@@ -52,11 +52,11 @@ oddschecker <- function(event) {
   #
   contender <- min(which(bookmakers != "")) - 1
   
-  odds <- html %>% html_nodes("table.eventTable") %>% .[[1]] %>% html_table(trim = TRUE)
+  odds <- html %>% html_nodes("table.eventTable") %>% .[[1]] %>% html_table()
   
   # Retain only rows with data.
   #
-  odds <- odds[do.call(seq, as.list(which(odds[, contender] == "") + c(1, -1))),]
+  odds <- odds[do.call(seq, as.list(which(odds[, contender] == "")[1:2] + c(1, -1))),]
   
   # Name rows.
   #
