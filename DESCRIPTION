@@ -8,7 +8,7 @@ Description: Functions for Gambling.
 License: GPL-3
 LazyData: TRUE
 Imports:
-    MASS
+    MASS, rvest, stringr
 Suggests:
     testthat
 RoxygenNote: 5.0.1

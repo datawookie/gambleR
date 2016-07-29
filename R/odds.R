@@ -6,7 +6,9 @@
 #' to.decimal(c("2/1", "5/3", "1/4"))
 #' @export
 to.decimal <- function(fractional) {
-  sapply(fractional, function(ratio) eval(parse(text = ratio)), USE.NAMES = FALSE) + 1
+  sapply(ifelse(fractional == "", NA, fractional), function(ratio) {
+    eval(parse(text = ratio))
+  }, USE.NAMES = FALSE) + 1
 }
 
 #' Convert decimal odds to fractional odds.
@@ -20,6 +22,10 @@ to.fractional <- function(decimal, ...) {
   sub("^([[:digit:]]*)$", "\\1/1", as.character(MASS::fractions(decimal - 1, ...)))
 }
 
+#' Calculate implied probability from odds.
+#' 
+#' @param odds A vector of either fractional or decimal odds.
+#' @export
 implied.probability <- function(odds) {
   if(class(odds) == "character") odds = to.decimal(odds)
   1 / odds

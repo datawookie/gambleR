@@ -6,15 +6,15 @@ library(reshape2)
 
 # ALL HORSE RACES -----------------------------------------------------------------------------------------------------
 
-html <- read_html("http://www.oddschecker.com/horse-racing")
-
-# Grab links to today's races.
-#
-race.times <- html %>% html_nodes(css = "a.race-time") %>% html_attr("data-time")
-#
-races.today <- grepl(Sys.Date(), race.times)
-#
-race.links <- html %>% html_nodes(css = "a.race-time") %>% html_attr("href") %>% .[races.today]
+# html <- read_html("http://www.oddschecker.com/horse-racing")
+# 
+# # Grab links to today's races.
+# #
+# race.times <- html %>% html_nodes(css = "a.race-time") %>% html_attr("data-time")
+# #
+# races.today <- grepl(Sys.Date(), race.times)
+# #
+# race.links <- html %>% html_nodes(css = "a.race-time") %>% html_attr("href") %>% .[races.today]
 
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ race.links <- html %>% html_nodes(css = "a.race-time") %>% html_attr("href") %>%
 #' 
 #' @param event Event specification.
 #' @return Table of odds quoted by various bookmakers for each of the contenders.
+#' @import stringr rvest xml2
 #' @examples
 #' oddschecker("politics/us-politics/us-presidential-election-2016/winner")
 #' oddschecker("horse-racing/carlisle/18:05/winner")
@@ -29,18 +30,20 @@ race.links <- html %>% html_nodes(css = "a.race-time") %>% html_attr("href") %>%
 oddschecker <- function(event) {
   URL = paste0("http://www.oddschecker.com/", event)
   
-  html <- read_html(URL)
+  html <- xml2::read_html(URL)
   
-  title <- html %>% html_nodes("h1") %>% html_text()
+  title <- html %>% rvest::html_nodes("h1") %>% html_text()
   #
   location = str_trim(str_extract(title, "^[^[:digit:]]*"))
   time = str_trim(str_extract(title, "[:digit:][:digit:]:[:digit:][:digit:]"))
   #
   name = html %>% html_nodes(xpath = '//*[@id="betting-odds"]/section[1]/div/div/div/div/p') %>% html_text %>% str_trim
   
-  table <- html %>% html_nodes("table") %>% .[[1]]
+  # table <- html %>% html_nodes("table") %>% .[[1]]
   
-  bookmakers = sapply(table %>% html_nodes(css = "tr.eventTableHeader td"), function(td) {
+  #oddsTableContainer > table > thead > tr.eventTableHeader
+  
+  bookmakers = sapply(html %>% html_nodes("table tr.eventTableHeader td"), function(td) {
     title = html_nodes(td, css = ".bk-logo-click") %>% html_attr("title")
     ifelse(length(title) == 0, "", title)
   })
@@ -49,11 +52,11 @@ oddschecker <- function(event) {
   #
   contender <- min(which(bookmakers != "")) - 1
   
-  odds <- table %>% html_table(trim = TRUE)
+  odds <- html %>% html_nodes("table.eventTable") %>% .[[1]] %>% html_table(trim = TRUE)
   
   # Retain only rows with data.
   #
-  odds <- odds[do.call(seq, as.list(which(odds[,contender] == "") + c(1, -1))),]
+  odds <- odds[do.call(seq, as.list(which(odds[, contender] == "") + c(1, -1))),]
   
   # Name rows.
   #
@@ -78,7 +81,7 @@ oddschecker <- function(event) {
   odds
 }
 
-print(xtable(odds[, 1:9]), type = "html", html.table.attributes = "")
+# print(xtable(odds[, 1:9]), type = "html", html.table.attributes = "")
 
 # ---------------------------------------------------------------------------------------------------------------------
 
