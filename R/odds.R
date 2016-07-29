@@ -7,7 +7,7 @@
 #' @export
 to.decimal <- function(fractional) {
   if (class(fractional) == "data.frame") {
-    return(data.frame(sapply(fractional, to.decimal), row.names = rownames(fractional)) %>% setNames(names(fractional)))
+    return(data.frame(sapply(fractional, to.decimal), row.names = rownames(fractional)) %>% setNames(names(fractional)) %>% as.matrix)
   }
   sapply(ifelse(fractional == "", NA, fractional), function(ratio) {
     eval(parse(text = ratio))
