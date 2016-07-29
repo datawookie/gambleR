@@ -6,6 +6,9 @@
 #' to.decimal(c("2/1", "5/3", "1/4"))
 #' @export
 to.decimal <- function(fractional) {
+  if (class(fractional) == "data.frame") {
+    return(data.frame(sapply(fractional, to.decimal), row.names = rownames(fractional)) %>% setNames(names(fractional)))
+  }
   sapply(ifelse(fractional == "", NA, fractional), function(ratio) {
     eval(parse(text = ratio))
   }, USE.NAMES = FALSE) + 1
