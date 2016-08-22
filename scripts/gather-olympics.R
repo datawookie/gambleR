@@ -7,13 +7,13 @@ while (TRUE) {
   #
   cat(time.fmt, "\n")
   #
-  men = oddschecker("olympics/athletics/mens/mens-100m/winner")
+  men = oddschecker("olympics/athletics/mens/mens-marathon/winner")
   men$time = time
   #
-  women = oddschecker("olympics/athletics/womens/womens-100m/winner")
+  women = oddschecker("olympics/athletics/womens/womens-800m/winner")
   women$time = time
   #
-  write.csv(select(men, time, everything()), sprintf("M-100-%s.csv", time.fmt), quote = FALSE)
-  write.csv(select(women, time, everything()), sprintf("F-100-%s.csv", time.fmt), quote = FALSE)
+  write.csv(select(men, time, everything()), sprintf("M-marathon-%s.csv", time.fmt), quote = FALSE)
+  write.csv(select(women, time, everything()), sprintf("F-800m-%s.csv", time.fmt), quote = FALSE)
   Sys.sleep(300)
 }
