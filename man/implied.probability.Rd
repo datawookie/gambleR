@@ -12,4 +12,9 @@ implied.probability(odds)
 \description{
 Calculate implied probability from odds.
 }
+\details{
+Implied probability is the reciprocal of the decimal odds.
+
+Decimcal odds of 2.0 are equivalent to an implied probability of 50%.
+}
 

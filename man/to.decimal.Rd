@@ -15,7 +15,16 @@ A numeric vector of decimal odds.
 \description{
 Convert fractional odds to decimal odds.
 }
+\details{
+Decimal odds are one more than the numerical value of the fractional odds.
+
+The decimal odds reflect the gross return expected per unit wager. For example, a wager placed on decimal odds of
+1.5 (equivalent to fractional odds of 1/2) stands to receive a net win of 50%.
+}
 \examples{
 to.decimal(c("2/1", "5/3", "1/4"))
+}
+\references{
+\url{http://www.bettingexpert.com/how-to/convert-odds}
 }
 

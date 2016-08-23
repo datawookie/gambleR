@@ -15,6 +15,12 @@ A character vector of fractional odds.
 \description{
 Convert decimal odds to fractional odds.
 }
+\details{
+Fractional odds have a numerical value one less than the decimal odds.
+
+The decimal odds reflect the net return expected per unit wager. For example, a wager placed on fractional odds of
+2/1 (equivalent to fractional odds of 3.0) stands to receive a net win of 200%.
+}
 \examples{
 to.fractional(c(3, 2.5, 1.25))
 }
