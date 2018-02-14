@@ -56,7 +56,11 @@ oddschecker <- function(event) {
   
   # Retain only rows with data.
   #
-  odds <- odds[do.call(seq, as.list(which(odds[, contender] == "")[1:2] + c(1, -1))),]
+  odds <- odds[-(1:which(odds[, contender] == "")[1]),]
+  
+  # Remove blank row (seems to appear intermittently as last row).
+  #
+  odds <- odds[!apply(odds, 1, function(d) all(d == "" | is.na(d))),]
   
   # Name rows.
   #
