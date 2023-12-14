@@ -3,6 +3,15 @@ library(reshape2)
 
 source("R/odds.R")
 
+# CHAMPIONS LEAGUE ----------------------------------------------------------------------------------------------------
+
+champions.league = oddschecker("football/champions-league/winner")
+
+champions.decimal = to.decimal(champions.league)
+champions.probability <- implied.probability(champions.decimal)
+
+# ---------------------------------------------------------------------------------------------------------------------
+
 odds <- read.csv(file.path("data", "horse-racing.csv")) %>% subset(Location == "Stratford" & Time == "18:20") %>%
   dcast(Horse ~ Bookmaker, value.var = "Odds")
 #
